@@ -1,129 +1,288 @@
-/*i really like these fonts makes the site look clean*/
+/* ============================================
+   DR_ Portfolio — Design System
+   Theme: Retro Pixel × Modern Minimalism
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap');
+
+/* --- Variables --- */
+:root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --accent: #FF8C00;
+    --accent-dim: rgba(255, 140, 0, 0.12);
+    --accent-border: rgba(255, 140, 0, 0.3);
+    --text: #F0F0F0;
+    --text-muted: #888888;
+    --text-dim: #444444;
+    --success: #4ade80;
+    --danger: #f87171;
+    --font: 'JetBrains Mono', 'Courier New', monospace;
+    --nav-height: 64px;
+}
+
+/* --- Reset --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 body {
-    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
-    background-color: #f8fafc;
-    color: #1e293b;
-    padding-bottom: 60px;
-    line-height: 1.6;
+    font-family: var(--font);
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+a:hover { color: #ffaa44; }
+
+/* --- Cursor Trail Canvas --- */
+#cursor-canvas {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; z-index: 9999;
 }
 
-.navbar-brand {
-    letter-spacing: 1px;
+/* --- Navbar --- */
+.navbar {
+    position: sticky; top: 0; z-index: 1000;
+    height: var(--nav-height);
+    display: flex; align-items: center;
+    padding: 0 2rem;
+    background: rgba(10, 10, 10, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--accent-border);
+}
+.navbar-inner {
+    width: 100%; max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+    font-size: 1.3rem; font-weight: 700;
+    color: var(--accent); letter-spacing: 2px; text-decoration: none;
+}
+.nav-logo .cursor {
+    display: inline-block; width: 2px; height: 1.1em;
+    background: var(--accent); margin-left: 1px;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+    color: var(--text-muted); font-size: 0.8rem;
+    letter-spacing: 1px; text-transform: uppercase;
+    text-decoration: none; transition: color 0.2s;
+    position: relative; padding-bottom: 4px;
+}
+.nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 2px; background: var(--accent); transition: width 0.3s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--accent); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+/* --- Page fade-in --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.page-enter { animation: fadeIn 0.5s ease forwards; }
+
+/* --- Container --- */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+/* --- Page Header --- */
+.page-header { padding: 3rem 0 2rem; }
+.page-header .prompt { color: var(--text-dim); font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 0.5rem; }
+.page-header .prompt span { color: var(--accent); }
+.page-header h1 {
+    font-size: clamp(2rem, 5vw, 3rem); font-weight: 700;
+    letter-spacing: -1px; color: var(--text);
 }
 
-/*some modifications for jumbotron */
-.jumbotron {
-    background: white !important;
-    border-bottom: 2px solid #e9ecef;
-    margin-bottom: 40px;
+/* ============================================
+   PIXEL CARD (shared)
+   ============================================ */
+.pixel-card {
+    background: var(--surface);
+    border: 1px solid var(--accent-border);
+    padding: 2rem;
+    transition: transform 0.1s ease, border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+}
+.pixel-card::before {
+    content: ''; position: absolute; top: -1px; left: -1px;
+    width: 8px; height: 8px; background: var(--accent);
+}
+.pixel-card::after {
+    content: ''; position: absolute; bottom: -1px; right: -1px;
+    width: 8px; height: 8px; background: var(--accent);
+}
+.pixel-card:hover {
+    transform: translate(-2px, -2px);
+    border-color: var(--accent);
+    box-shadow: 4px 4px 0 var(--accent);
 }
 
-/*hover animations*/
-.custom-box {
-    background: white;
-    padding: 35px;
-    border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* ============================================
+   TERMINAL (shared)
+   ============================================ */
+.terminal {
+    background: #0d0d0d;
+    border: 1px solid var(--accent-border);
+    box-shadow: 0 0 40px rgba(255,140,0,0.06);
+}
+.terminal-bar {
+    background: #1a1a1a;
+    padding: 0.6rem 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+    border-bottom: 1px solid var(--accent-border);
+}
+.terminal-dot { width: 10px; height: 10px; }
+.terminal-dot.red    { background: #ff5f57; }
+.terminal-dot.yellow { background: #febc2e; }
+.terminal-dot.green  { background: #28c840; }
+.terminal-title {
+    font-size: 0.72rem; color: var(--text-dim);
+    margin: 0 auto; letter-spacing: 1px;
+}
+.terminal-body { padding: 1.5rem; font-size: 0.88rem; line-height: 2.1; }
+.terminal-line { display: block; opacity: 0; }
+.terminal-line.cmd     { color: var(--accent); }
+.terminal-line.output  { color: var(--text-muted); padding-left: 1rem; }
+.terminal-line.success { color: var(--success); padding-left: 1rem; }
+.terminal-line.visible { opacity: 1; }
+
+/* ============================================
+   HOME PAGE
+   ============================================ */
+.hero {
+    min-height: calc(100vh - var(--nav-height));
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center; gap: 4rem;
+    padding: 4rem 2rem;
+    max-width: 1100px; margin: 0 auto;
+}
+.hero-left .greeting {
+    font-size: 0.8rem; color: var(--accent);
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem;
+}
+.hero-left h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700; line-height: 1.05; letter-spacing: -2px;
+    min-height: 1.2em;
+}
+.hero-left h1 .cursor {
+    display: inline-block; width: 3px; height: 0.85em;
+    background: var(--accent); animation: blink 0.8s step-end infinite;
+    margin-left: 2px; vertical-align: baseline;
+}
+.hero-left .subtitle {
+    font-size: 0.95rem; color: var(--text-muted);
+    margin-top: 1rem; letter-spacing: 1px;
 }
 
-.custom-box:hover {
-    transform: translateY(-8px);
-    border-color: #007bff;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+/* Hello World flip */
+.flip-container { height: 44px; overflow: hidden; margin-top: 1.5rem; }
+.flip-inner { height: 44px; }
+.flip-inner > div {
+    display: block; height: 44px; margin-bottom: 44px;
+    font-size: 1.3rem; font-weight: 300; color: var(--text-muted);
 }
-
-/*i'm really happy with the animations honestly they look so good*/
-.table {
-    margin-bottom: 0;
-    background: white;
-    border-radius: 8px;
-    /*i thought about using auto but for now this is just a simple pc/laptop website*/
-    overflow: hidden;
-}
-
-/* animation that i found here: https://prismic.io/blog/css-animation-examples*/
-.flip-container {
-    height: 60px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2rem;
-}
-
-.flip-inner {
-    height: 50px;
-    text-align: center;
-}
-
-.flip-inner>div {
-    display: block;
-    height: 50px;
-    margin-bottom: 50px;
-    font-size: 2.2rem;
-    font-weight: 300;
-    color: #6c757d;
-}
-
-.flip-inner>div:first-child {
+.flip-inner > div:first-child {
     animation: flip-rotate 18s cubic-bezier(0.23, 1, 0.32, 1) infinite;
 }
-
-.quote-word {
-    padding: 0;
-    display: inline-block;
-}
-
 @keyframes flip-rotate {
-    0% {
-        margin-top: 0px;
-    }
-
-    15% {
-        margin-top: 0px;
-    }
-
-    20% {
-        margin-top: -100px;
-    }
-
-    35% {
-        margin-top: -100px;
-    }
-
-    40% {
-        margin-top: -200px;
-    }
-
-    55% {
-        margin-top: -200px;
-    }
-
-    60% {
-        margin-top: -300px;
-    }
-
-    75% {
-        margin-top: -300px;
-    }
-
-    80% {
-        margin-top: -400px;
-    }
-
-    95% {
-        margin-top: -400px;
-    }
-
-    100% {
-        margin-top: -500px;
-    }
+    0%   { margin-top: 0;     } 15%  { margin-top: 0;     }
+    20%  { margin-top: -88px; } 35%  { margin-top: -88px; }
+    40%  { margin-top: -176px;} 55%  { margin-top: -176px;}
+    60%  { margin-top: -264px;} 75%  { margin-top: -264px;}
+    80%  { margin-top: -352px;} 95%  { margin-top: -352px;}
+    100% { margin-top: -440px;}
 }
 
+/* ============================================
+   ABOUT PAGE
+   ============================================ */
+.about-grid { display: grid; gap: 1.5rem; padding-bottom: 4rem; }
+.about-grid .pixel-card h2 {
+    color: var(--accent); font-size: 0.8rem;
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem;
+}
+.about-grid .pixel-card p { color: var(--text-muted); line-height: 1.9; }
+.about-grid .pixel-card p strong { color: var(--text); }
+
+.pixel-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+.pixel-table th {
+    text-align: left; color: var(--accent);
+    font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase;
+    padding: 0.75rem 1rem; border-bottom: 1px solid var(--accent-border);
+}
+.pixel-table td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: var(--text-muted); vertical-align: top;
+}
+.pixel-table tr:last-child td { border-bottom: none; }
+.pixel-table td:first-child { color: var(--text); }
+.pixel-table small { color: var(--text-dim); font-size: 0.78rem; display: block; margin-top: 0.2rem; }
+
+/* ============================================
+   PROJECTS PAGE
+   ============================================ */
+.projects-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem; padding-bottom: 4rem;
+}
+.project-card h3 { font-size: 1.15rem; color: var(--text); margin-bottom: 0.75rem; }
+.project-card p  { color: var(--text-muted); font-size: 0.88rem; line-height: 1.8; margin-bottom: 1.25rem; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+.tag {
+    font-size: 0.68rem; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--accent); border: 1px solid var(--accent-border); padding: 0.2rem 0.6rem;
+}
+.btn-pixel {
+    display: inline-block; color: var(--accent); border: 1px solid var(--accent);
+    padding: 0.5rem 1.25rem; font-family: var(--font); font-size: 0.82rem;
+    letter-spacing: 1px; cursor: pointer; background: transparent;
+    transition: background 0.2s, color 0.2s; text-decoration: none;
+}
+.btn-pixel:hover { background: var(--accent); color: var(--bg); }
+
+/* ============================================
+   CONTACT PAGE
+   ============================================ */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; padding-bottom: 4rem; }
+.contact-info-line { line-height: 2.2; }
+.info-cmd { color: var(--accent); }
+.info-val { color: var(--text-muted); padding-left: 1rem; display: block; }
+.info-val a { color: var(--text-muted); }
+.info-val a:hover { color: var(--accent); }
+
+.form-group { margin-bottom: 1.25rem; }
+.form-group label {
+    display: block; font-size: 0.72rem; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
+}
+.form-group input, .form-group textarea {
+    width: 100%; background: var(--surface); border: 1px solid var(--accent-border);
+    color: var(--text); font-family: var(--font); font-size: 0.88rem;
+    padding: 0.75rem 1rem; outline: none; transition: border-color 0.2s;
+    resize: vertical; border-radius: 0;
+}
+.form-group input:focus, .form-group textarea:focus { border-color: var(--accent); }
+.form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-dim); }
+#form-status { font-size: 0.85rem; margin-top: 0.75rem; text-align: center; }
+.text-success { color: var(--success); }
+.text-danger  { color: var(--danger); }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
 @media (max-width: 768px) {
-    .flip-inner>div {
-        font-size: 1.5rem;
-    }
+    .hero { grid-template-columns: 1fr; gap: 2rem; padding: 2rem 1rem; min-height: auto; }
+    .projects-grid, .contact-grid { grid-template-columns: 1fr; }
+    .nav-links { gap: 1rem; }
 }

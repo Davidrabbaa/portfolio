@@ -1,0 +1,129 @@
+/*i really like these fonts makes the site look clean*/
+body {
+    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    padding-bottom: 60px;
+    line-height: 1.6;
+}
+
+.navbar-brand {
+    letter-spacing: 1px;
+}
+
+/*some modifications for jumbotron */
+.jumbotron {
+    background: white !important;
+    border-bottom: 2px solid #e9ecef;
+    margin-bottom: 40px;
+}
+
+/*hover animations*/
+.custom-box {
+    background: white;
+    padding: 35px;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.custom-box:hover {
+    transform: translateY(-8px);
+    border-color: #007bff;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/*i'm really happy with the animations honestly they look so good*/
+.table {
+    margin-bottom: 0;
+    background: white;
+    border-radius: 8px;
+    /*i thought about using auto but for now this is just a simple pc/laptop website*/
+    overflow: hidden;
+}
+
+/* animation that i found here: https://prismic.io/blog/css-animation-examples*/
+.flip-container {
+    height: 60px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.flip-inner {
+    height: 50px;
+    text-align: center;
+}
+
+.flip-inner>div {
+    display: block;
+    height: 50px;
+    margin-bottom: 50px;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: #6c757d;
+}
+
+.flip-inner>div:first-child {
+    animation: flip-rotate 18s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+}
+
+.quote-word {
+    padding: 0;
+    display: inline-block;
+}
+
+@keyframes flip-rotate {
+    0% {
+        margin-top: 0px;
+    }
+
+    15% {
+        margin-top: 0px;
+    }
+
+    20% {
+        margin-top: -100px;
+    }
+
+    35% {
+        margin-top: -100px;
+    }
+
+    40% {
+        margin-top: -200px;
+    }
+
+    55% {
+        margin-top: -200px;
+    }
+
+    60% {
+        margin-top: -300px;
+    }
+
+    75% {
+        margin-top: -300px;
+    }
+
+    80% {
+        margin-top: -400px;
+    }
+
+    95% {
+        margin-top: -400px;
+    }
+
+    100% {
+        margin-top: -500px;
+    }
+}
+
+@media (max-width: 768px) {
+    .flip-inner>div {
+        font-size: 1.5rem;
+    }
+}
